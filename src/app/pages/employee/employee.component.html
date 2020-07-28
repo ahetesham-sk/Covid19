@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="Enter Text To Search..." [(ngModel)]="search">
+          </div>
+          <div class="col-md-8 text-right">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addEmp">
+              <i class="mdi mdi-account-plus"></i> Add Employee
+            </button>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <table class="table table-striped table-hover table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>Emp. ID</th>
+                  <th>Emp. Name</th>
+                  <th>Emp. Salary</th>
+                  <th>Emp. Age</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let employee of employees.data | filter:search">
+                  <td>{{employee.id}}</td>
+                  <td>{{employee.employee_name}}</td>
+                  <td>{{employee.employee_salary | currency : 'INR'}}</td>
+                  <td>{{employee.employee_age}}</td>
+                  <td>
+                    <button type="button" class="btn btn-inverse-primary btn-rounded btn-icon btn-sm">
+                      <i class="mdi mdi-pencil"></i>
+                    </button> &nbsp;
+                    <button type="button" class="btn btn-inverse-danger btn-rounded btn-icon btn-sm"
+                    (click)="deleteEmployee(employee.id)">
+                      <i class="mdi mdi-delete"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Add Employee Modal Starts -->
+<div class="modal fade" id="addEmp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel-2">
+          <h5>Add Employee</h5>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <form style="width: 100%;">
+
+            <div class="form-group row">
+              <label for="empName" class="col-sm-3 col-form-label">Employee Name:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Employee Name"
+                [(ngModel)]="emp.name">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="empSalary" class="col-sm-3 col-form-label">Employee Salary:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="salary" id="salary" placeholder="Enter Employee Salary"
+                [(ngModel)]="emp.salary">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="empAge" class="col-sm-3 col-form-label">Employee Age:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="age" id="age" placeholder="Enter Employee Age"
+                [(ngModel)]="emp.age">
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+            <i class="mdi mdi-delete"></i> Close
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" (click)="saveEmployee(emp)">
+           <i class="mdi mdi-content-save"></i> Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Ends -->
+</div>
